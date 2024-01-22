@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
 import { TodoProvider } from "./contexts/index";
@@ -26,6 +26,18 @@ function App() {
       prevTodo.id === id ? { ...prevTodo, 
         completed: !prevTodo.completed } : prevTodo))
   }
+
+  useEffect(()=>{
+    const todos = JSON.parse(localStorage.getItem("todos"))
+    if(todos?.length > 0){
+      setTodos(todos);
+    }
+  },[])
+
+  useEffect(()=>{
+    localStorage.setItem("todos", JSON.stringify(todos))
+  },[todos])
+
   return (
     <TodoProvider value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}>
       <div className="bg-[#172842] min-h-screen py-8">
@@ -37,7 +49,8 @@ function App() {
             <TodoForm />
           </div>
           <div className="flex flex-wrap gap-y-3">
-            {todos.map((todo) => (
+            {todos.length === 0 && <p className="text-xl">No todos availavle.</p>}
+            {todos.length > 0 && todos.map((todo) => (
               <div className="w-full" key={todo.id}>
                 <TodoItem todo={todo} />
               </div>

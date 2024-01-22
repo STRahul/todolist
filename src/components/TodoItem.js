@@ -7,10 +7,14 @@ const TodoItem = ({ todo }) => {
   const { updateTodo, deleteTodo, toggleComplete } = useTodo();
 
   function handleEdit() {
+    if (todo.completed) return;
+
     if (isTodoEditable) {
       updateTodo(todo.id, { ...todo, todo: todoMsg });
       setIsTodoEditable(false);
-    } else setIsTodoEditable((prev) => !prev);
+    } else {
+      setIsTodoEditable((prev) => !prev);
+    }
   }
   return (
     <div
