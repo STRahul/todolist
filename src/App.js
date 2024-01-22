@@ -1,3 +1,4 @@
+import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
 
 function App() {
@@ -8,6 +9,9 @@ function App() {
           <h1 className="text-2xl font-bold text-center mb-8 mt-2">
             Manage Your Todos
           </h1>
+          <div className="mb-4">
+            <TodoForm />
+          </div>
           <div className="flex flex-wrap gap-y-3">
             <div className="w-full">
               <TodoItem todo="Learn ReactJs" />
